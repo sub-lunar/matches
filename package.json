@@ -1,6 +1,6 @@
 {
   "name": "@sub-lunar/matches",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A matches function that climbs up the document tree, kind of like what gator.js does.",
   "main": "./dist/matches.js",
   "scripts": {
