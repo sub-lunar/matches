@@ -66,6 +66,9 @@ module.exports = function matches(element, selector) {
     if (element[matchMethod](selector)) {
       return element;
     }
+    if (!element.parentNode) {
+      return null;
+    }
     element = element.parentNode;
   }
   return null;
