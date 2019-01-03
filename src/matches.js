@@ -56,36 +56,37 @@
  *   }
  * })
  */
+if (typeof window !== 'undefined') {
+  const matchMethod = getMatchMethod()
 
-const matchMethod = getMatchMethod()
-
-module.exports = function matches (element, selector) {
-  while (element.tagName !== 'HTML' && element.tagName !== 'html') {
-    if (element[matchMethod](selector)) {
-      return element
+  module.exports = function matches (element, selector) {
+    while (element.tagName !== 'HTML' && element.tagName !== 'html') {
+      if (element[matchMethod](selector)) {
+        return element
+      }
+      if (!element.parentNode) {
+        return null
+      }
+      element = element.parentNode
     }
-    if (!element.parentNode) {
-      return null
-    }
-    element = element.parentNode
+    return null
   }
-  return null
-}
-
-function getMatchMethod () {
-  const body = document.body
-  const methods = [
-    'matches',
-    'matchesSelector',
-    'mozMatchesSelector',
-    'webkitMatchesSelector',
-    'msMatchesSelector',
-  ]
-  for (let i = 0; i < methods.length; i++) {
-    if (Object.prototype.toString.call(body[methods[i]])
-        === '[object Function]') {
-      return methods[i]
+  
+  function getMatchMethod () {
+    const body = document.body
+    const methods = [
+      'matches',
+      'matchesSelector',
+      'mozMatchesSelector',
+      'webkitMatchesSelector',
+      'msMatchesSelector',
+    ]
+    for (let i = 0; i < methods.length; i++) {
+      if (Object.prototype.toString.call(body[methods[i]])
+          === '[object Function]') {
+        return methods[i]
+      }
     }
+    throw new Error('No matches or similiar method found on document.body')
   }
-  throw new Error('No matches or similiar method found on document.body')
 }

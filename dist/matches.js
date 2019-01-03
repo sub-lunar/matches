@@ -58,29 +58,30 @@
  *   }
  * })
  */
-
-var matchMethod = getMatchMethod();
-
-module.exports = function matches(element, selector) {
-  while (element.tagName !== 'HTML' && element.tagName !== 'html') {
-    if (element[matchMethod](selector)) {
-      return element;
+if (typeof window !== 'undefined') {
+  var getMatchMethod = function getMatchMethod() {
+    var body = document.body;
+    var methods = ['matches', 'matchesSelector', 'mozMatchesSelector', 'webkitMatchesSelector', 'msMatchesSelector'];
+    for (var i = 0; i < methods.length; i++) {
+      if (Object.prototype.toString.call(body[methods[i]]) === '[object Function]') {
+        return methods[i];
+      }
     }
-    if (!element.parentNode) {
-      return null;
-    }
-    element = element.parentNode;
-  }
-  return null;
-};
+    throw new Error('No matches or similiar method found on document.body');
+  };
 
-function getMatchMethod() {
-  var body = document.body;
-  var methods = ['matches', 'matchesSelector', 'mozMatchesSelector', 'webkitMatchesSelector', 'msMatchesSelector'];
-  for (var i = 0; i < methods.length; i++) {
-    if (Object.prototype.toString.call(body[methods[i]]) === '[object Function]') {
-      return methods[i];
+  var matchMethod = getMatchMethod();
+
+  module.exports = function matches(element, selector) {
+    while (element.tagName !== 'HTML' && element.tagName !== 'html') {
+      if (element[matchMethod](selector)) {
+        return element;
+      }
+      if (!element.parentNode) {
+        return null;
+      }
+      element = element.parentNode;
     }
-  }
-  throw new Error('No matches or similiar method found on document.body');
+    return null;
+  };
 }

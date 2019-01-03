@@ -43,6 +43,7 @@ const dom = new jsdom.JSDOM(`
 </html>
 `)
 
+const window = dom.window
 const document = dom.window.document
 
 // also a function to trigger events, copied from StackOverflow
@@ -58,7 +59,7 @@ function eventFire(el, etype){
 }
 
 const matches = SandboxedModule.require('../dist/matches', {
-  globals: { document },
+  globals: { window, document },
 })
 
 
