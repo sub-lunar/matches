@@ -57,35 +57,32 @@
  * })
  */
 
-const matchMethod = getMatchMethod()
+function matches(element, selector) {
+  return isMatchingChildOf(document, element, selector)
+}
 
-module.exports = function matches (element, selector) {
-  while (element.tagName !== 'HTML' && element.tagName !== 'html') {
-    if (element[matchMethod](selector)) {
-      return element
+function isMatchingChildOf(parent, element, selector) {
+  let matchingChildren = parent.querySelectorAll(selector)
+  function isMatchingChild(element) {
+    for (let i = 0; i < matchingChildren.length; i++) {
+      if (matchingChildren[i] === element) {
+        return true
+      }
     }
-    if (!element.parentNode) {
+    return false
+  }
+  let _element = element
+  while (_element !== parent) {
+    if (isMatchingChild(_element)) {
+      return _element
+    }
+    if (!_element.parentNode || _element.parentNode === parent) {
       return null
     }
-    element = element.parentNode
+    _element = _element.parentNode
   }
   return null
 }
 
-function getMatchMethod () {
-  const body = document.body
-  const methods = [
-    'matches',
-    'matchesSelector',
-    'mozMatchesSelector',
-    'webkitMatchesSelector',
-    'msMatchesSelector',
-  ]
-  for (let i = 0; i < methods.length; i++) {
-    if (Object.prototype.toString.call(body[methods[i]])
-        === '[object Function]') {
-      return methods[i]
-    }
-  }
-  throw new Error('No matches or similiar method found on document.body')
-}
+module.exports = matches
+module.exports.isMatchingChildOf = isMatchingChildOf

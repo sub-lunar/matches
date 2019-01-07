@@ -47,7 +47,7 @@ const document = dom.window.document
 
 // also a function to trigger events, copied from StackOverflow
 // https://stackoverflow.com/a/2706236/3254410
-function eventFire(el, etype){
+function eventFire(el, etype) {
   if (el.fireEvent) {
     el.fireEvent('on' + etype)
   } else {
@@ -61,9 +61,7 @@ const matches = SandboxedModule.require('../dist/matches', {
   globals: { document },
 })
 
-
 test('matches if target is child', t => {
-
   t.plan(9) // from outer space
 
   const myList = document.querySelector('.my-list')
@@ -107,9 +105,7 @@ test('matches if target is child', t => {
   t.is(lastMatch.tagName, 'LI')
 })
 
-
 test('matches if target matches selector directly', t => {
-
   t.plan(9)
 
   const myList = document.querySelector('.my-list')
@@ -151,7 +147,6 @@ test('matches if target matches selector directly', t => {
 })
 
 test('matches and non-matches', t => {
-
   t.plan(10)
 
   const wrapper = document.querySelector('.wrapper')
@@ -163,7 +158,6 @@ test('matches and non-matches', t => {
   let lastMatch = null
 
   wrapper.addEventListener('click', ({ target }) => {
-
     const match = matches(target, 'div.want-to-match')
 
     if (match) {
