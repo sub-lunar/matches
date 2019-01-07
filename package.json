@@ -1,6 +1,6 @@
 {
   "name": "@sub-lunar/matches",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A matches function that climbs up the document tree, kind of like what gator.js does.",
   "main": "./dist/matches.js",
   "scripts": {
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sub-lunar/match.git"
+    "url": "git+https://github.com/em4nl/matches.git"
   },
-  "author": "Emanuel Tannert <post@etannert.de> (https://github.com/sub-lunar/)",
+  "author": "Emanuel Tannert <post@etannert.de> (https://github.com/em4nl/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sub-lunar/match/issues"
+    "url": "https://github.com/em4nl/matches/issues"
   },
-  "homepage": "https://github.com/sub-lunar/match#readme",
+  "homepage": "https://github.com/em4nl/matches#readme",
   "devDependencies": {
     "ava": "^0.19.1",
     "babel-cli": "^6.24.1",
